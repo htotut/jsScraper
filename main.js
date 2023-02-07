@@ -1,7 +1,14 @@
-(function(){
+(function() {
     async function start() {
-        var t = document.querySelector("h1.pgs-sinfo-title").textContent
-        title = t.match(/Сериал (.+)\/(.+)(?:\s{1,2}\d{1,2} сезон) онлайн/)[2]
+        var title = document.querySelector("h1.pgs-sinfo-title").textContent
+        title = title.replace(/ \d{1,2} сезон/, '')
+        title = title.replace(/ онлайн/, '')
+        title = title.replace(/Сериал /, '').split('/')
+        if (title.length == 2) {
+            title = title[1].trim()
+        } else {
+            title = title[0].trim()
+        }
 
         var seasons = Array.prototype.map.call(document.querySelector("div.pgs-seaslist").querySelectorAll("a"), function(item) { return item.href })
 
